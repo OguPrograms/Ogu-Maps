@@ -1,0 +1,64 @@
+<html lang="cat">
+<head>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""></script>
+    <link rel="stylesheet" href="styles/style.css"/>
+</head>
+<body>
+
+    <div class="menu-wrapper">
+        <div class="menu">
+
+            <div class="header">
+                <div class="mediu-size">
+
+                    <div>
+                        <p>Tipus</p>
+                        <select id="tipus">
+                        </select>
+                    </div>
+
+                    <div>
+                        <p>Ordre</p>
+                        <select id="any">
+                            <option value="normal">Acendent</option>
+                            <option value="reverse">Decendent</option>
+                        </select>
+                    </div>
+
+                </div>
+
+                <div class="big-size">
+                    <input type="text" id="filtre" placeholder="Filtrar per nom"/>
+                </div>
+            </div>
+
+            <div class="content">
+            </div>
+
+            <div class="footer">
+                <div>
+                    Total: <span id="total">0</span>
+                </div>
+                <div>
+                    <button id="reset">Reset</button>
+                </div>
+            </div>
+
+            <div class="dropzone">
+                Drop heare a CSV to load the data
+            </div>
+
+        </div>
+    </div>
+
+    <div id="map" class="map"> </div>
+
+    <script src="scripts/const.js"></script>
+    <script src="scripts/app.js"></script>
+</body>
+</html>
