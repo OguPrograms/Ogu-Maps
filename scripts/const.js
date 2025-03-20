@@ -1,4 +1,5 @@
 const FILE_EXTENSION = 'csv';
+const CHAR_CSV = ';';
 
 const CURRENT = 0;
 

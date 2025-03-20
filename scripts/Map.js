@@ -1,4 +1,7 @@
 class Map{
+    borrarPunts(){
+
+    }
 
     // #getActualPosition(){
     //     let lat = 41.388120917759146;

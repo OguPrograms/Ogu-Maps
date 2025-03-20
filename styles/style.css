@@ -1,6 +1,7 @@
 body {
     --color-balck: #000;
-    --color-white: #ffffff6e;
+    --color-buttons: #fff;
+    --color-white: #ffffff50;
     --border: 10px;
     --with-menu: 350px;
 
@@ -15,6 +16,24 @@ body {
         margin: 0;
     }
 
+    .button{
+        border: none;
+
+        background-color: var(--color-buttons);
+        border-radius: 30px;
+        padding: 5px 10px;
+        backdrop-filter: blur(4px);
+        margin-block: 0px;
+
+        transition: all .1s;
+    }
+    
+    .button:hover{
+        cursor: pointer;
+        padding: 3px 10px;
+        margin-block: 2px;
+    }
+
     .menu-wrapper{
         position: absolute;
         top: 10px;
@@ -26,7 +45,7 @@ body {
         width: var(--with-menu);
         border-radius: var(--border);
 
-        backdrop-filter: blur(3px);
+        backdrop-filter: blur(4px);
         z-index: 1000;
 
         transition: all 1s ease-in-out;

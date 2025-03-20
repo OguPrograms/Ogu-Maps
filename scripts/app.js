@@ -27,7 +27,6 @@ dropZone.addEventListener('dragleave', function(event){
 dropZone.addEventListener('drop', function(event){
     event.preventDefault();
     files = event.dataTransfer.files;
-    console.log(files);
     document.querySelector('.header').style.display = 'flex';
     document.querySelector('.footer').style.display = 'flex';
     document.querySelector('.content').style.display = 'flex';
@@ -36,12 +35,16 @@ dropZone.addEventListener('drop', function(event){
 });
 
 const loadFile = function(files){
+    // fitxer.forEach((lineaCSV)=> 
+    //     console.log(lineaCSV)
+    //     switch(dades[TIPUS].toLowerCase())
+    // )
     if (files && files.length > 0){
         const file = files[0];
         const extension = file.name.split('.');
         if (extension[extension.length - 1].toLowerCase() === FILE_EXTENSION){
-            console.log('CSV');
             hasData = true;
+            readCSV(file)
         } else {
             alert('Nomes accepta arxius CSV');
         }
@@ -52,10 +55,8 @@ const readCSV = function(file){
     const reader = new FileReader();
     reader.onload = () => {
         fitxer = reader.result.trim().split('\n').slice(1);
-        console.log(fitxer)
-        console.log("startFitxer")
-        loadData(fitxer);
         getInfoCountry();
+        loadData(fitxer);
     }
     reader.onerror = function(event){
         showMesage('Error al llegir el fitxer:', event.target.error);
@@ -64,28 +65,26 @@ const readCSV = function(file){
 }
 
 const loadData = function(fitxer){
-    console.log(fitxer);
     fitxer.forEach(lineaCSV => {
 
-        numId ++;
         const dades = lineaCSV.split(CHAR_CSV);
-        console.log(dades[TIPUS]);
+        numId ++;
 
         switch (dades[TIPUS].toLowerCase()){
             case 'espai':
+                console.log("aaa")
                 const espaiObj = new puntInteres(numId, dades[PAIS], dades[CODI]);
                 puntInteres.push(espaiObj);
-                console.log("aaa")
             break;
             case 'museu':
+                console.log("bbb")
                 const museuObj = new puntInteres(numId, dades[PAIS], dades[CODI]);
                 puntInteres.push(museuObj);
-                console.log("bbb")
             break;
             case 'atraccio':
+                console.log("ccc")
                 const atraccioObj = new puntInteres(numId, dades[PAIS], dades[CODI]);
                 puntInteres.push(atraccioObj);
-                console.log("ccc")
                 break;
             default:
                 throw new Error('Error en el tipus del/s punt/s d\'interes');
