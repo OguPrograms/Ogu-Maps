@@ -41,7 +41,12 @@ reset.addEventListener('click', function(event){
     document.querySelector('.content').style.display = 'none';
     document.querySelector('.menu-wrapper').style.height = '20%';
     dropZone.style.maxHeight = '100%';
+
     document.querySelector('.content').innerHTML = '';
+    document.querySelector('.country').innerHTML = '';
+    document.querySelector('.city').innerHTML = '';
+    document.querySelector('#total').innerHTML = '0';
+
 });
 
 // ON LOAD FILE
@@ -98,7 +103,6 @@ const loadData = function(fitxer){
 
     });
 
-    console.log(puntInteres)
     puntInteres.sort();
     getInfoCountry();
 
@@ -106,8 +110,9 @@ const loadData = function(fitxer){
 
 const getInfoCountry = async function(){
 
-    codi = puntInteres[1].codi
-    ciutat = puntInteres[1].ciutat
+    codi = puntInteres[1].codi;
+    ciutat = puntInteres[1].ciutat;
+    total = puntInteres.length;
 
     try {
         const response = await fetch(`https://restcountries.com/v3.1/alpha/${codi}`);
@@ -115,6 +120,11 @@ const getInfoCountry = async function(){
         const data = await response.json();
 
         const bandera = data[0].flags.svg;
+
+        document.querySelector('.country').innerHTML = '';
+        document.querySelector('.city').innerHTML = '';
+
+        document.querySelector('#total').innerHTML = total;
 
         const country = document.createElement('div');
         country.innerHTML = `Pais: <img src="${bandera}">`;
