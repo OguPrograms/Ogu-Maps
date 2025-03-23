@@ -141,7 +141,7 @@ const pintaAtraccio = function(atraccio){
     element.innerHTML = `<h1>${atraccio.nom}</h1>
                         <p>${atraccio.ciutat} | Tipus: ${atraccio.tipus} | Horari: ${atraccio.horaris} | Preu: ${atraccio.preus}${atraccio.moneda} (IVA) | Dirreccio: ${atraccio.direccio}`;
     document.querySelector('.content').appendChild(element);
-    // map.afegirPunt(atraccio.latitud, atraccio.longitud, atraccio.nom, atraccio.direccio, atraccio.puntuacio)
+    map.afegirPunt(atraccio.latitud, atraccio.longitud, atraccio.nom, atraccio.direccio, atraccio.puntuacio)
 }
 
 const crearPuntInteres = function (fila){
