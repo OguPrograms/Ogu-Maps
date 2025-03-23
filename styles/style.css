@@ -82,6 +82,21 @@ body {
 
             }
 
+            .flags{
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+
+                .country{
+                    display: flex;
+                    flex-direction: row;
+
+                    img{
+                        max-width: 20px;
+                    }
+                }
+            }
+
             .content{
                 display: none;
                 /* opacity: 0; */
