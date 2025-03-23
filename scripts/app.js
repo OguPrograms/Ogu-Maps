@@ -26,8 +26,22 @@ dropZone.addEventListener('drop', function(event){
     document.querySelector('.header').style.display = 'flex';
     document.querySelector('.footer').style.display = 'flex';
     document.querySelector('.content').style.display = 'flex';
+    document.querySelector('.flags').style.display = 'flex';
     dropZone.style.maxHeight = '20%';
     loadFile(files);
+});
+
+//DELETE CSV LISTENER
+reset.addEventListener('click', function(event){
+    map.borrarPunts();
+    puntInteres = [];
+    document.querySelector('.flags').style.display = 'none';
+    document.querySelector('.header').style.display = 'none';
+    document.querySelector('.footer').style.display = 'none';
+    document.querySelector('.content').style.display = 'none';
+    document.querySelector('.menu-wrapper').style.height = '20%';
+    dropZone.style.maxHeight = '100%';
+    document.querySelector('.content').innerHTML = '';
 });
 
 // ON LOAD FILE
@@ -64,12 +78,12 @@ const loadData = function(fitxer){
 
         switch (dades[TIPUS].toLowerCase()){
             case 'espai':
-                const espaiObj = new PuntInteres(numId, dades[PAIS], dades[CODI], );
+                const espaiObj = new PuntInteres(numId, dades[PAIS], dades[CODI], dades[CIUTAT], dades[TIPUS], dades[NOM], dades[DIRECCIO], dades[LATITUD], dades[LONGITUD], dades[HORARIS], dades[PUNTUACIO]);
                 puntInteres.push(espaiObj);
                 pintaEspai(espaiObj);
             break;
             case 'museu':
-                const museuObj = new Museu(numId, dades[PAIS], dades[CODI]);
+                const museuObj = new Museu(numId, dades[PAIS], dades[CODI], dades[CIUTAT], dades[TIPUS], dades[NOM], dades[DIRECCIO], dades[LATITUD], dades[LONGITUD], dades[HORARIS], dades[PREUS], dades[DESCRIPCIO], dades[PUNTUACIO], dades[MONEDA]);
                 puntInteres.push(museuObj);
                 pintaMuseu(museuObj);
             break;
@@ -84,6 +98,8 @@ const loadData = function(fitxer){
 
     });
 
+    console.log(puntInteres)
+    puntInteres.sort();
     getInfoCountry();
 
 }
@@ -122,7 +138,7 @@ const pintaEspai = function(espai){
     element.classList.add('punt-interes');
     element.innerHTML = `${espai.nom}`;
     document.querySelector('.content').appendChild(element);
-    // map.afegirPunt(espai.latitud, espai.longitud, espai.nom, espai.direccio, espai.puntuacio)
+    map.afegirPunt(espai.latitud, espai.longitud, espai.nom, espai.direccio, espai.puntuacio)
 }
 
 const pintaMuseu = function(museu){
@@ -131,7 +147,7 @@ const pintaMuseu = function(museu){
     element.classList.add('punt-interes');
     element.innerHTML = `${museu.nom}`;
     document.querySelector('.content').appendChild(element);
-    // map.afegirPunt(museu.latitud, museu.longitud, museu.nom, museu.direccio, museu.puntuacio)
+    map.afegirPunt(museu.latitud, museu.longitud, museu.nom, museu.direccio, museu.puntuacio)
 }
 
 const pintaAtraccio = function(atraccio){
