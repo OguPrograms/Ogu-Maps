@@ -104,6 +104,19 @@ body {
 
                 /* transition: height 1s ease-in-out; */
                 /* transition: opacity 1s ease-in-out .4s; */
+                flex-direction: column;
+                .punt-interes{
+                    border-radius: var(--border);
+                    background-color: var(--color-white);
+
+                    margin-block: 5px;
+                    padding: 5px;
+
+                    h1{
+                        margin: 0;
+                        font-size: medium;
+                    }
+                }
             }
 
             .footer{

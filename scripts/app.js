@@ -48,7 +48,6 @@ const readCSV = function(file){
     const reader = new FileReader();
     reader.onload = () => {
         fitxer = reader.result.trim().split('\n').slice(1);
-        getInfoCountry();
         loadData(fitxer);
     }
     reader.onerror = function(event){
@@ -75,8 +74,6 @@ const loadData = function(fitxer){
                 pintaMuseu(museuObj);
             break;
             case 'atraccio':
-                console.log(dades)
-                console.log(dades[LATITUD])
                 const atraccioObj = new Atraccio(numId, dades[PAIS], dades[CODI], dades[CIUTAT], dades[TIPUS], dades[NOM], dades[DIRECCIO], dades[LATITUD], dades[LONGITUD], dades[HORARIS], dades[PREUS], dades[DESCRIPCIO], dades[PUNTUACIO], dades[MONEDA]);
                 puntInteres.push(atraccioObj);
                 pintaAtraccio(atraccioObj)
@@ -88,7 +85,6 @@ const loadData = function(fitxer){
     });
 
     getInfoCountry();
-    console.log(puntInteres);
 
 }
 
@@ -97,17 +93,12 @@ const getInfoCountry = async function(){
     codi = puntInteres[1].codi
     ciutat = puntInteres[1].ciutat
 
-    console.log(puntInteres)
-
     try {
         const response = await fetch(`https://restcountries.com/v3.1/alpha/${codi}`);
 
         const data = await response.json();
 
-        console.log(data)
         const bandera = data[0].flags.svg;
-
-        console.log(bandera)
 
         const country = document.createElement('div');
         country.innerHTML = `Pais: <img src="${bandera}">`;
@@ -127,6 +118,7 @@ const getInfoCountry = async function(){
 
 const pintaEspai = function(espai){
     const element = document.createElement('div');
+    element.classList.add('espai');
     element.classList.add('punt-interes');
     element.innerHTML = `${espai.nom}`;
     document.querySelector('.content').appendChild(element);
@@ -135,6 +127,7 @@ const pintaEspai = function(espai){
 
 const pintaMuseu = function(museu){
     const element = document.createElement('div');
+    element.classList.add('museu');
     element.classList.add('punt-interes');
     element.innerHTML = `${museu.nom}`;
     document.querySelector('.content').appendChild(element);
@@ -142,10 +135,11 @@ const pintaMuseu = function(museu){
 }
 
 const pintaAtraccio = function(atraccio){
-    console.log(atraccio)
     const element = document.createElement('div');
+    element.classList.add('atraccio');
     element.classList.add('punt-interes');
-    element.innerHTML = `${atraccio.nom}`;
+    element.innerHTML = `<h1>${atraccio.nom}</h1>
+                        <p>${atraccio.ciutat} | Tipus: ${atraccio.tipus} | Horari: ${atraccio.horaris} | Preu: ${atraccio.preus}${atraccio.moneda} (IVA) | Dirreccio: ${atraccio.direccio}`;
     document.querySelector('.content').appendChild(element);
     // map.afegirPunt(atraccio.latitud, atraccio.longitud, atraccio.nom, atraccio.direccio, atraccio.puntuacio)
 }

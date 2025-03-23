@@ -38,9 +38,13 @@ class Map{
 
     afegirPunt(lat, lon, nom, direccio, puntuacio) {
         const marker = L.marker([lat, lon]).addTo(this.map);
-        // if (desc) {
-        //     marker.bindPopup(desc);
-        // }
+        if (nom || direccio || puntuacio) {
+            const popupContent = `
+                <h2>${nom}</h2><br>
+                <p>${direccio}</p>
+                <p>Puntuación: ${puntuacio}</p>`;
+            marker.bindPopup(popupContent);
+        }
         this.markers.push(marker);
     }
 }
