@@ -1,9 +1,10 @@
-class Atraccio extends PuntInteres {
-    constructor(id, pais, codi, ciutat, tipus, nom, direccio, latitud, longitud, puntuacio, esManual, horaris, preu, moneda) {
-        super(id, pais, codi, ciutat, tipus, nom, direccio, tipus, latitud, longitud, puntuacio, esManual);
+class Museu extends PuntInteres {
+    constructor(pais, ciutat, nom, direccio, tipus, latitud, longitud, puntuacio, id, esManual, horaris, preu, moneda, descripcio) {
+        super(pais, ciutat, nom, direccio, tipus, latitud, longitud, puntuacio, id, esManual);
         this.horaris = horaris;
         this.preu = preu;
         this.moneda = moneda;
+        this.descripcio = descripcio;
     }
 
     get preuIva() {

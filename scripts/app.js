@@ -1,13 +1,6 @@
-const mapCenter = [41.3851, 2.1734]; // Coordinates for Barcelona, Spain 
-const zoomLevel = 13; 
-
 const dropZone = document.querySelector('.dropzone');
 
-let map = L.map('map').setView(mapCenter, zoomLevel); 
-
-const tileLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', { attribution: '&copy; OpenStreetMap contributors' }); tileLayer.addTo(map); 
-tileLayer.addTo(map)
-
+let puntInteres = [];
 let numId = 0;
 
 // const markerPosition = [41.388120917759146, 2.1148382385196327];
@@ -15,6 +8,9 @@ let numId = 0;
 // const popupText = "This is a marker in Barcelona!";
 // marker.bindPopup(popupText).openPopup();
 
+const map = new Map();
+
+// DROP ZONE LOGIC AND ANIMATIONS
 dropZone.addEventListener('dragover', function(event){
     event.preventDefault();
     document.querySelector('.menu-wrapper').style.height = 'calc(100% - 30px)';
@@ -34,11 +30,8 @@ dropZone.addEventListener('drop', function(event){
     loadFile(files);
 });
 
+// ON LOAD FILE
 const loadFile = function(files){
-    // fitxer.forEach((lineaCSV)=> 
-    //     console.log(lineaCSV)
-    //     switch(dades[TIPUS].toLowerCase())
-    // )
     if (files && files.length > 0){
         const file = files[0];
         const extension = file.name.split('.');
@@ -72,18 +65,15 @@ const loadData = function(fitxer){
 
         switch (dades[TIPUS].toLowerCase()){
             case 'espai':
-                console.log("aaa")
-                const espaiObj = new puntInteres(numId, dades[PAIS], dades[CODI]);
+                const espaiObj = new PuntInteres(numId, dades[PAIS], dades[CODI], );
                 puntInteres.push(espaiObj);
             break;
             case 'museu':
-                console.log("bbb")
-                const museuObj = new puntInteres(numId, dades[PAIS], dades[CODI]);
+                const museuObj = new Museu(numId, dades[PAIS], dades[CODI]);
                 puntInteres.push(museuObj);
             break;
             case 'atraccio':
-                console.log("ccc")
-                const atraccioObj = new puntInteres(numId, dades[PAIS], dades[CODI]);
+                const atraccioObj = new Atraccio(numId, dades[PAIS], dades[CODI], dades[CIUTAT], dades[TIPUS], dades[NOM], dades[DIRECCIO], dades[LATITUD], dades[LONGITUD], dades[HORARIS], dades[PREUS], dades[DESCRIPCIO], dades[PUNTUACIO], dades[MONEDA]);
                 puntInteres.push(atraccioObj);
                 break;
             default:
@@ -152,27 +142,3 @@ const crearPuntInteres = function (fila){
 
     }
 }
-
-
-
-
-// // Verifica si la geolocalización está disponible en el navegador
-// if (navigator.geolocation) {
-//     navigator.geolocation.getCurrentPosition(function (position) {
-//         var lat = position.coords.latitude;
-//         var lng = position.coords.longitude;
-
-
-//         // Coloca un marcador en la ubicación actual del usuario
-//         L.marker([lat, lng]).addTo(map)
-//             .bindPopup("Estás aquí").openPopup();
-
-
-//         // Centra el mapa en la ubicación actual
-//         map.setView([lat, lng], 13);
-//     }, function (error) {
-//         console.error("Error en la geolocalización:", error);
-//     });
-// } else {
-//     console.error("La geolocalización no está disponible en este navegador.");
-// }
