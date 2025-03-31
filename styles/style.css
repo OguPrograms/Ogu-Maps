@@ -105,6 +105,10 @@ body {
                 /* transition: height 1s ease-in-out; */
                 /* transition: opacity 1s ease-in-out .4s; */
                 flex-direction: column;
+
+                max-height: 56%;
+                overflow: auto;
+
                 .punt-interes{
                     border-radius: var(--border);
                     background-color: var(--color-white);
@@ -121,6 +125,28 @@ body {
                         font-size: small;
                     }
 
+                    .header-element{
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: space-between;
+                        .button{
+                            font-size: xx-small;
+                            padding-inline: 7px;
+                        }
+                    }
+
+                }
+
+                .atraccio {
+                    background-color: rgba(255, 0, 0, 0.3) !important;
+                }
+
+                .museu {
+                    background-color: rgba(60, 255, 0, 0.3) !important;
+                }
+
+                .espai {
+                    background-color: rgba(255, 255, 0, 0.3);
                 }
             }
 

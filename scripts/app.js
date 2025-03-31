@@ -146,32 +146,64 @@ const pintaEspai = function(espai){
     const element = document.createElement('div');
     element.classList.add('espai');
     element.classList.add('punt-interes');
-    element.innerHTML = `${espai.nom}`;
+    element.innerHTML = `<div class="header-element">
+                            <h1>${espai.nom}</h1>
+                            <button class="button">
+                                X
+                            </button>
+                        </div>
+                        <p>${espai.ciutat} | Tipus: ${espai.tipus}`;
     document.querySelector('.content').appendChild(element);
-    map.afegirPunt(espai.latitud, espai.longitud, espai.nom, espai.direccio, espai.puntuacio)
+
+    const button = element.querySelector('.button');
+    const marker = map.afegirPunt(espai.latitud, espai.longitud, espai.nom, espai.direccio, espai.puntuacio);
+
+    button.addEventListener('click', function() {
+        map.borrarPunt(marker);
+        element.remove();
+    });
 }
 
 const pintaMuseu = function(museu){
     const element = document.createElement('div');
     element.classList.add('museu');
     element.classList.add('punt-interes');
-    element.innerHTML = `${museu.nom}`;
+    element.innerHTML = `<div class="header-element">
+                            <h1>${museu.nom}</h1>
+                            <button class="button">
+                                X
+                            </button>
+                        </div>
+                        <p>${museu.ciutat} | Tipus: ${museu.tipus} | Horari: ${museu.horaris} | Preu: ${museu.preus}${museu.moneda} (IVA)`;
     document.querySelector('.content').appendChild(element);
-    map.afegirPunt(museu.latitud, museu.longitud, museu.nom, museu.direccio, museu.puntuacio)
+
+    const button = element.querySelector('.button');
+    const marker = map.afegirMuseu(museu.latitud, museu.longitud, museu.nom, museu.direccio, museu.puntuacio);
+
+    button.addEventListener('click', function() {
+        map.borrarPunt(marker);
+        element.remove();
+    });
 }
 
 const pintaAtraccio = function(atraccio){
     const element = document.createElement('div');
     element.classList.add('atraccio');
     element.classList.add('punt-interes');
-    element.innerHTML = `<h1>${atraccio.nom}</h1>
+    element.innerHTML = `<div class="header-element">
+                            <h1>${atraccio.nom}</h1>
+                            <button class="button">
+                                X
+                            </button>
+                        </div>
                         <p>${atraccio.ciutat} | Tipus: ${atraccio.tipus} | Horari: ${atraccio.horaris} | Preu: ${atraccio.preus}${atraccio.moneda} (IVA) | Dirreccio: ${atraccio.direccio}`;
     document.querySelector('.content').appendChild(element);
-    map.afegirPunt(atraccio.latitud, atraccio.longitud, atraccio.nom, atraccio.direccio, atraccio.puntuacio)
-}
 
-const crearPuntInteres = function (fila){
-    if (fila){
+    const button = element.querySelector('.button');
+    const marker = map.afegirAtracci(atraccio.latitud, atraccio.longitud, atraccio.nom, atraccio.direccio, atraccio.puntuacio);
 
-    }
+    button.addEventListener('click', function() {
+        map.borrarPunt(marker);
+        element.remove();
+    });
 }
