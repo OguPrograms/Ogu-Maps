@@ -33,7 +33,7 @@ dropZone.addEventListener('drop', function(event){
 
 //DELETE CSV LISTENER
 reset.addEventListener('click', function(event){
-    map.borrarPunts();
+
     puntInteres = [];
     document.querySelector('.flags').style.display = 'none';
     document.querySelector('.header').style.display = 'none';
@@ -42,12 +42,18 @@ reset.addEventListener('click', function(event){
     document.querySelector('.menu-wrapper').style.height = '20%';
     dropZone.style.maxHeight = '100%';
 
+    resetItemsDisplayer();
+
+});
+
+const resetItemsDisplayer = function(){
+    map.borrarPunts();
+
     document.querySelector('.content').innerHTML = '';
     document.querySelector('.country').innerHTML = '';
     document.querySelector('.city').innerHTML = '';
     document.querySelector('#total').innerHTML = '0';
-
-});
+}
 
 // ON LOAD FILE
 const loadFile = function(files){
@@ -85,27 +91,46 @@ const loadData = function(fitxer){
             case 'espai':
                 const espaiObj = new PuntInteres(numId, dades[PAIS], dades[CODI], dades[CIUTAT], dades[TIPUS], dades[NOM], dades[DIRECCIO], dades[LATITUD], dades[LONGITUD], dades[HORARIS], dades[PUNTUACIO]);
                 puntInteres.push(espaiObj);
-                pintaEspai(espaiObj);
             break;
             case 'museu':
                 const museuObj = new Museu(numId, dades[PAIS], dades[CODI], dades[CIUTAT], dades[TIPUS], dades[NOM], dades[DIRECCIO], dades[LATITUD], dades[LONGITUD], dades[HORARIS], dades[PREUS], dades[DESCRIPCIO], dades[PUNTUACIO], dades[MONEDA]);
                 puntInteres.push(museuObj);
-                pintaMuseu(museuObj);
             break;
             case 'atraccio':
                 const atraccioObj = new Atraccio(numId, dades[PAIS], dades[CODI], dades[CIUTAT], dades[TIPUS], dades[NOM], dades[DIRECCIO], dades[LATITUD], dades[LONGITUD], dades[HORARIS], dades[PREUS], dades[DESCRIPCIO], dades[PUNTUACIO], dades[MONEDA]);
                 puntInteres.push(atraccioObj);
-                pintaAtraccio(atraccioObj)
             break;
             default:
                 throw new Error('Error en el tipus del/s punt/s d\'interes');
         }
 
     });
+    
+    puntInteres.sort((a, b) => a.nom.toLowerCase().localeCompare(b.nom.toLowerCase()));
+    printItems();
 
-    puntInteres.sort();
     getInfoCountry();
 
+}
+
+const printItems = function(){
+    puntInteres.forEach(punt => {
+
+        switch (punt.tipus.toLowerCase()){
+            case 'espai':
+                pintaEspai(punt);
+            break;
+            case 'museu':
+                pintaMuseu(punt);
+            break;
+            case 'atraccio':
+                pintaAtraccio(punt);
+            break;
+            default:
+                throw new Error('Error en el tipus del/s punt/s d\'interes');
+
+        }
+    });
 }
 
 const getInfoCountry = async function(){
@@ -216,3 +241,20 @@ const pintaAtraccio = function(atraccio){
         countTotalItems();
     });
 }
+
+// ORDER ITEMS
+document.getElementById("order").addEventListener('change', function() {
+    resetItemsDisplayer();
+
+    const orden = this.value;
+
+    if (orden === 'normal') {
+        puntInteres.sort((a, b) => a.nom.toLowerCase().localeCompare(b.nom.toLowerCase()));
+    } else if (orden === 'reverse') {
+        puntInteres.sort((a, b) => b.nom.toLowerCase().localeCompare(a.nom.toLowerCase()));
+    }
+
+    printItems();
+    console.log(puntInteres)
+
+});
