@@ -112,7 +112,6 @@ const getInfoCountry = async function(){
 
     codi = puntInteres[1].codi;
     ciutat = puntInteres[1].ciutat;
-    total = puntInteres.length;
 
     try {
         const response = await fetch(`https://restcountries.com/v3.1/alpha/${codi}`);
@@ -124,7 +123,7 @@ const getInfoCountry = async function(){
         document.querySelector('.country').innerHTML = '';
         document.querySelector('.city').innerHTML = '';
 
-        document.querySelector('#total').innerHTML = total;
+        countTotalItems();
 
         const country = document.createElement('div');
         country.innerHTML = `Pais: <img src="${bandera}">`;
@@ -141,6 +140,10 @@ const getInfoCountry = async function(){
 
 }
 
+const countTotalItems = function() {
+    total = puntInteres.length;
+    document.querySelector('#total').innerHTML = total;
+}
 
 const pintaEspai = function(espai){
     const element = document.createElement('div');
@@ -161,6 +164,8 @@ const pintaEspai = function(espai){
     button.addEventListener('click', function() {
         map.borrarPunt(marker);
         element.remove();
+        puntInteres.splice(puntInteres.indexOf(espai), 1);
+        countTotalItems();
     });
 }
 
@@ -183,6 +188,8 @@ const pintaMuseu = function(museu){
     button.addEventListener('click', function() {
         map.borrarPunt(marker);
         element.remove();
+        puntInteres.splice(puntInteres.indexOf(museu), 1);
+        countTotalItems();
     });
 }
 
@@ -205,5 +212,7 @@ const pintaAtraccio = function(atraccio){
     button.addEventListener('click', function() {
         map.borrarPunt(marker);
         element.remove();
+        puntInteres.splice(puntInteres.indexOf(atraccio), 1);
+        countTotalItems();
     });
 }
