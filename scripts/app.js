@@ -1,4 +1,6 @@
 const dropZone = document.querySelector('.dropzone');
+let tipeFilter = null;
+let orderFilter = "normal";
 
 let puntInteres = [];
 let numId = 0;
@@ -281,7 +283,7 @@ document.getElementById("order").addEventListener('change', function() {
         puntInteres.sort((a, b) => b.nom.toLowerCase().localeCompare(a.nom.toLowerCase()));
     }
 
-    printItems();
+    printItems(tipeFilter);
     console.log(puntInteres)
 
 });
