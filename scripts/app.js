@@ -3,11 +3,6 @@ const dropZone = document.querySelector('.dropzone');
 let puntInteres = [];
 let numId = 0;
 
-// const markerPosition = [41.388120917759146, 2.1148382385196327];
-// const marker = L.marker(markerPosition).addTo(map);
-// const popupText = "This is a marker in Barcelona!";
-// marker.bindPopup(popupText).openPopup();
-
 const map = new Map();
 
 // DROP ZONE LOGIC AND ANIMATIONS
@@ -113,24 +108,56 @@ const loadData = function(fitxer){
 
 }
 
-const printItems = function(){
+const printItems = function(filter){
+    const tipe = document.getElementById("tipe");
+
+    let espai = false;
+    let museu = false;
+    let atraccio = false;
+
+    if (filter == null){
+        tipe.innerHTML = '<option value="all">Tots</option>';
+    }
+
     puntInteres.forEach(punt => {
 
         switch (punt.tipus.toLowerCase()){
             case 'espai':
-                pintaEspai(punt);
+                if (filter == "espai" || filter == null) {
+                    pintaEspai(punt);
+                    // Nomes pinta el filtre si hi ha algun d'aquest tipus per filtrar
+                    if (!espai && filter == null) {
+                        tipe.innerHTML += '<option value="espai">Espai</option>';
+                        espai = true;
+                    }
+                }
             break;
             case 'museu':
-                pintaMuseu(punt);
+                if (filter == "museu" || filter == null) {
+                    pintaMuseu(punt);
+                    if (!museu && filter == null) {
+                        tipe.innerHTML += '<option value="museu">Museu</option>';
+                        museu = true;
+                    }
+                }
             break;
             case 'atraccio':
-                pintaAtraccio(punt);
+                if (filter == "atraccio" || filter == null) {
+                    pintaAtraccio(punt);
+                    if (!atraccio && filter == null) {
+                        tipe.innerHTML += '<option value="atraccio">Atraccio</option>';
+                        atraccio = true;
+                    }
+                }
+
             break;
             default:
                 throw new Error('Error en el tipus del/s punt/s d\'interes');
 
         }
+
     });
+
 }
 
 const getInfoCountry = async function(){
@@ -256,5 +283,20 @@ document.getElementById("order").addEventListener('change', function() {
 
     printItems();
     console.log(puntInteres)
+
+});
+
+// FILTER ITEMS PER TIPE
+document.getElementById("tipe").addEventListener('change', function() {
+
+    const tipe = this.value;
+    resetItemsDisplayer();
+    if (tipe == "all"){
+        printItems();
+    } else {
+        printItems(tipe);
+    }
+
+    countTotalItems();
 
 });
