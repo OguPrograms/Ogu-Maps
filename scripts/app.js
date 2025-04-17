@@ -302,3 +302,27 @@ document.getElementById("tipe").addEventListener('change', function() {
     countTotalItems();
 
 });
+
+// FILTER ITEMS BY NAME
+document.getElementById("filtre").addEventListener('input', function() {
+    const filtro = this.value.toLowerCase();
+    resetItemsDisplayer();
+
+    const elementosFiltrados = puntInteres.filter(punt => punt.nom.toLowerCase().includes(filtro));
+
+    elementosFiltrados.forEach(punt => {
+        switch (punt.tipus.toLowerCase()) {
+            case 'espai':
+                pintaEspai(punt);
+                break;
+            case 'museu':
+                pintaMuseu(punt);
+                break;
+            case 'atraccio':
+                pintaAtraccio(punt);
+                break;
+        }
+    });
+
+    document.querySelector('#total').innerHTML = elementosFiltrados.length;
+});
